@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 //@RepositoryRestResource(exported = false)
-@RepositoryRestResource(path = "courses")
+@RepositoryRestResource(path = "courses")  // just adding the URL path 
 public interface CoursesRepository extends JpaRepository<Courses, Integer> {
 
     /*
