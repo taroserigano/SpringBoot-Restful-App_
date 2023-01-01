@@ -22,8 +22,9 @@ public class ProjectSecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 
-        http.csrf().ignoringRequestMatchers("/saveMsg").ignoringRequestMatchers("/public/**")
-                .ignoringRequestMatchers("/api/**").ignoringRequestMatchers("/data-api/**").and()
+        http.csrf().ignoringRequestMatchers("/saveMsg").ignoringRequestMatchers("/public/**") // ig nore these URLs, since these are for HaL Explorer
+                .ignoringRequestMatchers("/api/**").ignoringRequestMatchers("/data-api/**")   //so the endpoints need to be exposed for HAL UI 
+                .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/dashboard").authenticated()
                 .requestMatchers("/displayMessages/**").hasRole("ADMIN")
@@ -50,7 +51,7 @@ public class ProjectSecurityConfig {
                 .requestMatchers("/public/**").permitAll()
                 .and().formLogin().loginPage("/login")
                 .defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll()
-                .and().logout().logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll()
+                .and().logout().logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll()   // disable HTTP session after logout 
                 .and().httpBasic();
 
             return http.build();
